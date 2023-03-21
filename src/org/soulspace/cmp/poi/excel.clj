@@ -1,12 +1,14 @@
-;
-;   Copyright (c) Ludger Solbach. All rights reserved.
-;   The use and distribution terms for this software are covered by the
-;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
-;   which can be found in the file license.txt at the root of this distribution.
-;   By using this software in any fashion, you are agreeing to be bound by
-;   the terms of this license.
-;   You must not remove this notice, or any other, from this software.
-;
+;;;;
+;;;;   Copyright (c) Ludger Solbach. All rights reserved.
+;;;;
+;;;;   The use and distribution terms for this software are covered by the
+;;;;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+;;;;   which can be found in the file license.txt at the root of this distribution.
+;;;;   By using this software in any fashion, you are agreeing to be bound by
+;;;;   the terms of this license.
+;;;;
+;;;;   You must not remove this notice, or any other, from this software.
+;;;;
 (ns org.soulspace.cmp.poi.excel
   (:require [clojure.java.io :as io]
             [clojure.set :as set]
@@ -23,11 +25,13 @@
            [org.apache.poi.xssf.usermodel XSSFWorkbook XSSFDataValidationConstraint
                                           XSSFDataValidationHelper XSSFColor]))
 
-; Wrapper for the Apache POI Excel API
-; 
-; See https://poi.apache.org/ for reference.
+;;;; Wrapper for the Apache POI Excel API
+;;;; 
+;;;; See https://poi.apache.org/ for reference.
 
-; enum constants
+;;;
+;;; enum constants
+;;;
 (def picture-type
   "Maps keywords to Workbook picture type values."
   {:dib  Workbook/PICTURE_TYPE_DIB
@@ -152,6 +156,10 @@
 (def cell-fill-style-key (set/map-invert cell-fill-style))
 (def fill-pattern-type-key (set/map-invert fill-pattern-type))
 
+;;
+;; Dynamic vars for macro bindings
+;;
+
 ; defines the current values, which will be bound thread locally by the new and select macros
 (def ^{:dynamic true} *workbook*)
 (def ^{:dynamic true} *sheet*)
@@ -160,12 +168,25 @@
 
 (defn xssf-workbook?
   "Checks if the given workbook is a xssf workbook (a.k.a. an '.xlsx' file)."
-  [wb])
+  [wb]
+  ; TODO implement check
+  )
 
+;;;
+;;; Coersions
+;;;
 (defn to-int
   "Coerces a (numeric) value to an integer."
   [value]
   (tc/coerce java.lang.Integer/TYPE value))
+
+;;;
+;;; Excel functions
+;;;
+
+;;
+;; Color
+;;
 
 (defn color-index
   "Returns the index of the color."
@@ -187,6 +208,10 @@
    (color *workbook* r g b))
   ([wb r g b]
    (XSSFColor. (java.awt.Color. r g b) (get-indexed-color-map wb))))
+
+;;;
+;;; Queries
+;;;
 
 (defn get-sheets
   "Returns a sequence of the sheets in the workbook."
@@ -287,6 +312,10 @@
      :null
      (cell-type-key (.getCellType cell)))))
 
+;;;
+;;; Cell functions
+;;;
+
 (defn set-cell-type
   "Sets the type of the cell to type."
   ([type]
@@ -372,6 +401,11 @@
   [cell value]
   (.setCellValue cell value))
 
+
+;;
+;; Multimethod for cell value dispatched on cell type
+;;
+
 (defmulti cell-value
   "Returns the value of the cell (based on the type of the cell)."
   get-cell-type)
@@ -446,7 +480,9 @@
   ([sheet min-cells]
    (map #(get-all-cells % min-cells) (filter seq (get-all-rows sheet)))))
 
-; sheet functions
+;;;
+;;; Sheet functions
+;;; 
 (defn sheet-values
   "Returns a sequence of phyically defined values of the sheets in the workbook."
   ([]
@@ -489,9 +525,9 @@
       0
       last-index)))
 
-;
-; constructors/factory functions
-;
+;;;
+;;; Constructors/factory functions
+;;;
 (defn create-workbook
  "Creates a new workbook.
    
@@ -636,9 +672,9 @@
   ([sheet start-row end-row start-column end-column]
    (.addMergedRegion sheet (create-cell-range-address start-row end-row start-column end-column))))
 
-;
-; IO
-;
+;;;
+;;; I/O functions
+;;;
 (defn read-workbook
   "Reads a workbook from file."
   ([file]
@@ -657,9 +693,9 @@
    (with-open [out (io/output-stream file)]
      (.write wb out))))
 
-;
-; Conveniance functions
-;
+;;;
+;;; Conveniance functions
+;;;
 (defn new-cell-style
   "Creates a new cell style in the current workbook."
   [opts]
@@ -675,7 +711,10 @@
   [opts]
   (create-data-format *workbook* opts))
 
-; Macros
+;;;
+;;; Macros
+;;;
+
 (defmacro with-workbook
   "Reads the workbook from file, executes the body with the workbook and writes the workbook back to file."
   [file & body]
