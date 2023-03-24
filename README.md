@@ -25,22 +25,22 @@ Now we create a brand new excel workbook with some sample data and write it to d
   (xl/write-workbook 
     "TestMACRO.xlsx"
     (xl/new-workbook {}
-              (let [style1 (xl/new-cell-style {:fillForegroundColor (xl/color-index IndexedColors/AQUA)
-                                               :fillPattern (xl/fill-pattern-type :solid-foreground)
-                                               :alignment (xl/horizontal-alignment :center)})]
-                (xl/new-sheet {}
-                           (xl/new-row {}
-                                (xl/new-cell {:cellStyle style1} "N0001")
-                                (xl/new-cell {} "V13")
-                                (xl/new-cell {} 1.5))
-                           (xl/new-row {}
-                                    (xl/new-cell {:cellStyle style1} "N0002")
-                                    (xl/new-cell {} "V14")
-                                    (xl/new-cell {} 2.3))
-                           (xl/new-row {}
-                                    (xl/new-cell {:cellStyle style1} "N0003")
-                                    (xl/new-cell {} "V15")
-                                    (xl/new-cell {} 4.5)))))))
+      (let [style1 (xl/new-cell-style {:fillForegroundColor (xl/color-index IndexedColors/AQUA)
+                                       :fillPattern (xl/fill-pattern-type :solid-foreground)
+                                       :alignment (xl/horizontal-alignment :center)})]
+        (xl/new-sheet {}
+          (xl/new-row {}
+            (xl/new-cell {:cellStyle style1} "N0001")
+            (xl/new-cell {} "V13")
+            (xl/new-cell {} 1.5))
+          (xl/new-row {}
+            (xl/new-cell {:cellStyle style1} "N0002")
+            (xl/new-cell {} "V14")
+            (xl/new-cell {} 2.3))
+          (xl/new-row {}
+            (xl/new-cell {:cellStyle style1} "N0003")
+            (xl/new-cell {} "V15")
+            (xl/new-cell {} 4.5)))))))
 
 (create-example)
 ```
@@ -53,17 +53,17 @@ Finally we read the new excel workbook again and update a sheet with a new row o
   []
   (xl/with-workbook "TestMACRO.xlsx"
     (xl/select-sheet 0 {}
-           (xl/new-row {}
-                (xl/new-cell {} 1.5)
-                (xl/new-cell {} 2.5)
-                (xl/new-cell {} 3.5)))))
+      (xl/new-row {}
+        (xl/new-cell {} 1.5)
+        (xl/new-cell {} 2.5)
+        (xl/new-cell {} 3.5)))))
                 
 (update-example)
 ```
 
 Copyright
 ---------
-© 2013-2021 Ludger Solbach
+© 2013-2023 Ludger Solbach
 
 License
 -------

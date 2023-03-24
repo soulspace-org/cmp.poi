@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+Version 0.6.4
+-------------
+* updated to Apache POI 5.2.3
+
 Version 0.6.3
 -------------
 * fixed color function to match POI API changes
