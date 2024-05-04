@@ -1,4 +1,4 @@
-(defproject org.soulspace.clj/cmp.poi "0.6.5-SNAPSHOT"
+(defproject org.soulspace.clj/cmp.poi "0.6.5"
   :description "The cmp.poi library is an Apache POI wrapper to create, read and update MS Excel files."
   :url "https://github.com/soulspace-org/cmp.poi"
   :license {:name "Eclipse Public License"
