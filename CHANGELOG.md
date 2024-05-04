@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 0.6.5
+-------------
+* updated to Apache POI 5.2.5
+* updated clj.java to 0.9.0
+* fixed example namespaces
+
 Version 0.6.4
 -------------
 * updated to Apache POI 5.2.3

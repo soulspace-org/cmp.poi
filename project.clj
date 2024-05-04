@@ -1,4 +1,4 @@
-(defproject org.soulspace.clj/cmp.poi "0.6.4"
+(defproject org.soulspace.clj/cmp.poi "0.6.5-SNAPSHOT"
   :description "The cmp.poi library is an Apache POI wrapper to create, read and update MS Excel files."
   :url "https://github.com/soulspace-org/cmp.poi"
   :license {:name "Eclipse Public License"
@@ -9,8 +9,8 @@
 ;  :middleware [lein-tools-deps.plugin/resolve-dependencies-with-deps-edn]
 ;  :lein-tools-deps/config {:config-files [:install :user :project]}
   :dependencies [[org.clojure/clojure "1.10.1"]
-                 [org.apache.poi/poi-ooxml "5.2.3"]
-                 [org.soulspace.clj/clj.java "0.8.0"]]
+                 [org.apache.poi/poi-ooxml "5.2.5"]
+                 [org.soulspace.clj/clj.java "0.9.0"]]
 
   :test-paths ["test"]
 
